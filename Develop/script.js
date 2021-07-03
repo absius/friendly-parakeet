@@ -2,6 +2,7 @@
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
+var randomSelector=[];
 
 function getLowercaseLetter(){
   
@@ -46,14 +47,48 @@ function getSpecChar(){
   return specCharacter;
 };
 
-function generatePassword() {
-  var passwordLength = prompt("How many characters would you like in your password?");
-  var includeLowercase = prompt("Do you want to include lowercase letters? Enter Y or N");
-  var includeUppercase  = prompt("Do you want to include uppercase letters? Enter Y or N");
-  var includeNumber  = prompt("Do you want to include numbers? Enter Y or N");
-  var includeSpecChar = prompt("Do you want to include special characters? Enter Y or N");
-var randomPassword ='';
-var randomSelector=[];
+function promptUpper(){
+  var include = prompt("Do you want to include uppercase letters? Enter Y or N");
+if (include.toLowerCase() != 'y' && include.toLowerCase() != 'n'){
+  alert('Please enter a valid answer!');
+  include = promptUpper();
+}
+  return include;
+};
+
+function promptLower(){
+  var include = prompt("Do you want to include lowercase letters? Enter Y or N");
+if (include.toLowerCase() != 'y' && include.toLowerCase() != 'n'){
+  alert('Please enter a valid answer!');
+  include = promptLower();
+}
+  return include;
+};
+
+function promptNumber(){
+  var include = prompt("Do you want to include numbers? Enter Y or N");
+if (include.toLowerCase() != 'y' && include.toLowerCase() != 'n'){
+  alert('Please enter a valid answer!');
+  include = promptNumber();
+}
+  return include;
+};
+
+function promptSpecial(){
+  var include = prompt("Do you want to include special characters? Enter Y or N");
+if (include.toLowerCase() != 'y' && include.toLowerCase() != 'n'){
+  alert('Please enter a valid answer!');
+  include = promptSpecial();
+}
+  return include;
+};
+function promptForCharacters(){
+  var includeLowercase = promptLower();
+  var includeUppercase  = promptUpper();
+  var includeNumber  = promptNumber();
+  var includeSpecChar = promptSpecial();
+
+
 if (includeLowercase.toLowerCase() === 'y'){
   randomSelector.push('0');
  
@@ -69,9 +104,31 @@ randomSelector.push('2');
 if (includeSpecChar.toLowerCase() === 'y'){
 randomSelector.push('3');
 }
+if (randomSelector.length === 0){
+  alert("You must choose at least one type of character!")
+  promptForCharacters();
+}
+};
+
+function charsInPassword(){
+  var length = prompt("How many characters would you like in your password?");
+  if (length < 8 || length > 128){
+    alert("You must choose between 8 and 128 characters!");
+    length = charsInPassword();
+  }
+return length;
+}
+function generatePassword() {
+  randomSelector = [];
+  var randomPassword ='';
+ var passwordLength = charsInPassword();
+
+  promptForCharacters();
+ 
 for (i=0; i < passwordLength; i++){
 
 var selector = randomSelector[Math.floor(Math.random() * randomSelector.length)];
+
 if (selector === '0'){
   randomPassword = randomPassword + getLowercaseLetter();
 }
