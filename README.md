@@ -22,3 +22,4 @@ Link to deployed page https://absius.github.io/friendly-parakeet
 
 Screen Capture :
 
+![screenshot](https://user-images.githubusercontent.com/50057893/124367828-649ce480-dc20-11eb-8ee3-4f6472f561a7.PNG)
